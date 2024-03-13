@@ -1,0 +1,63 @@
+﻿@model CustomersViewModel
+@{
+    ViewData["Title"] = "All Customer";
+}
+
+<h1>@ViewBag.Title</h1>
+
+@if (TempData.ContainsKey("Content"))
+{
+    <div class="alert alert-@TempData["ClassName"] alert-dismissible fade show" role="alert">
+        <p>@TempData["Content"]</p>
+        @if (TempData.ContainsKey("CustomerId"))
+        {
+            <p><a asp-action="UndoDelete" asp-route-customerId="@TempData["CustomerId"]">Undo</a> this delete.</p>
+        }
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+
+<a asp-controller="Customer" asp-action="Add">Add a new customer</a>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Customer item in Model.Customers)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Address1 @item.ProvinceOrState</td>
+                <td>
+
+                    <a asp-action="GetInvoicesByCustomerId" asp-route-customerId="@item.CustomerId">Invoices</a>
+                    <span class="mx-1">|</span>
+                    <a asp-action="Edit" asp-route-customerId="@item.CustomerId">Edit</a>
+                    <span class="mx-1">|</span>
+                    <a asp-action="Delete" asp-route-customerId="@item.CustomerId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<nav>
+    <ul class="pagination">
+        <li class="page-item @(Model.ActivePage == "A-E" ? "active" : "")">
+            <a class="page-link" asp-controller="Customer" asp-action="List" asp-route-nameFrom="A" asp-route-nameTo="E">A-E</a>
+        </li>
+        <li class="page-item @(Model.ActivePage == "F-K" ? "active" : "")">
+            <a class="page-link" asp-controller="Customer" asp-action="List" asp-route-nameFrom="F" asp-route-nameTo="K">F-K</a>
+        </li>
+        <li class="page-item @(Model.ActivePage == "L-R" ? "active" : "")">
+            <a class="page-link" asp-controller="Customer" asp-action="List" asp-route-nameFrom="L" asp-route-nameTo="R">L-R</a>
+        </li>
+        <li class="page-item @(Model.ActivePage == "S-Z" ? "active" : "")">
+            <a class="page-link" asp-controller="Customer" asp-action="List" asp-route-nameFrom="S" asp-route-nameTo="Z">S-Z</a>
+        </li>
+    </ul>
+</nav>

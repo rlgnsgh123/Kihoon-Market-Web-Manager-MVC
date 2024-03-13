@@ -1,0 +1,12 @@
+﻿@model CustomerViewModel
+@{
+    ViewData["Title"] = "Add a Customer";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<form method="post" asp-controller="Customer" asp-action="Add" enctype="application/x-www-form-urlencoded">
+    <partial name="_CustomerForm" model="@Model" />
+    <button class="btn btn-primary" type="submit">Add</button>
+    <a class="btn btn-secondary" asp-controller="Customer" asp-action="List" asp-route-nameFrom="A" asp-route-nameTo="E">Cancel</a>
+</form>

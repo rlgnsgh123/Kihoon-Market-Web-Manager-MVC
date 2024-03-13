@@ -1,0 +1,14 @@
+﻿
+@model CustomerViewModel
+@{
+    ViewData["Title"] = "Edit a Customer";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<form method="post" asp-controller="Customer" asp-action="Edit" enctype="application/x-www-form-urlencoded">
+    <input type="hidden" asp-for="Customer.CustomerId"/>
+    <partial name="_CustomerForm.cshtml" model="@Model" />
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a class="btn btn-secondary" asp-controller="Customer" asp-action="List" asp-route-nameFrom="A" asp-route-nameTo="E">Cancel</a>
+</form>
